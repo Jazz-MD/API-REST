@@ -1,3 +1,27 @@
+<script>
+export default {
+  name: 'ChatBoard',
+  props: {
+    messages: {
+      type: Array,
+      required: true
+    }
+  }
+}
+</script>
+
 <template>
-  <h2>Mensajes</h2>
+  <div class="chatbox">
+    <div
+      v-for="(message, index) in messages"
+      :key="index"
+      class="message"
+      :class="message.side == 'left' ? 'text-start' : 'text-end'"
+    >
+      <span>{{ message.name }}</span>
+      <p class="message-text rounded" :style="{ backgroundColor: message.color }">
+        {{ message.message }}
+      </p>
+    </div>
+  </div>
 </template>

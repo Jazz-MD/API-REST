@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     enviarMensaje() {
-      this.$emit('enviarMensaje', this.message, this.color)
+      this.$emit('enviar-mensaje', this.message, this.color, this.user.name.first, this.user.side)
 
       this.message = ''
     }
@@ -23,18 +23,20 @@ export default {
 }
 </script>
 <template>
-  <h2>UserCard</h2>
-  <div class="card" style="width: 18rem">
-    <img :src="user.picture.large" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">{{ user.name.first }} {{ user.name.last }}</h5>
+  <div class="user-component">
+    <h2>UserCard</h2>
+    <div class="card" style="width: 18rem">
+      <img :src="user.picture.large" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ user.name.first }} {{ user.name.last }}</h5>
 
-      <!-- Acá gestionaremos envio de mensaje -->
-      <form @submit.prevent="enviarMensaje">
-        <input v-model="color" type="color" />
-        <textarea v-model="message"></textarea>
-        <button>Enviar</button>
-      </form>
+        <!-- Acá gestionaremos envio de mensaje -->
+        <form @submit.prevent="enviarMensaje">
+          <input v-model="color" type="color" />
+          <textarea v-model="message"></textarea>
+          <button>Enviar</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>

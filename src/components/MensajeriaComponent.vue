@@ -20,10 +20,15 @@ export default {
       const url = 'https://randomuser.me/api/?results=2'
       const { data } = await axios.get(url)
 
-      this.userLeft = data.results[0]
-      this.userRight = data.results[1]
+      this.userLeft = { ...data.results[0], side: 'left' }
+      this.userRight = { ...data.results[1], side: 'right' }
     } catch (error) {
       console.error(error)
+    }
+  },
+  methods: {
+    enviarMensaje(message, color, name, side) {
+      this.messages.push({ message, color, name, side })
     }
   }
 }
@@ -32,8 +37,21 @@ export default {
   <h1>Chat Mazinger</h1>
 
   <div class="chat-app-container container">
-    <UserCard :user="userLeft" />
-    <ChatBoard />
-    <UserCard :user="userRight" />
+    <div class="row">
+      <UserCard
+        :user="userLeft"
+        @enviar-mensaje="enviarMensaje"
+        class="col-4"
+        v-if="Object.keys(userLeft).length > 0"
+      />
+      <ChatBoard class="col-4" :messages="messages" />
+      <UserCard
+        :user="userRight"
+        class="col-4"
+        @enviar-mensaje="enviarMensaje"
+        v-if="Object.keys(userRight).length > 0"
+      />
+    </div>
   </div>
 </template>
+<style></style>
